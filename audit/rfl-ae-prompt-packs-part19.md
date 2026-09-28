@@ -19,11 +19,11 @@
 
 ---
 
-## 1. Standing: §0–§361 across seven documents
+## 1. Standing: §0–§361 across eight documents
 
 v0.8 continues from v0.7, and this time the numbering is clean: **§272–§361, ninety sections, verified contiguous.** No gap corresponding to §200.
 
-The effective specification is now **361 sections across seven documents.**
+The effective specification is now **361 sections across eight documents.** *(Corrected — see [Part XXI](rfl-ae-prompt-packs-part21.md) §7.2.)*
 
 ### 1.1 The lineage's own instruction to stop specifying
 

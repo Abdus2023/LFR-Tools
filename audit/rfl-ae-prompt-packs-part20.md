@@ -21,11 +21,11 @@
 
 ---
 
-## 1. Standing: §0–§455 across eight documents
+## 1. Standing: §0–§455 across nine documents
 
 **The transition is clean.** v0.8 ends at §361; v0.9 opens at §362. Measured: **94 sections, §362–§455, contiguous, no unassigned section.** This is the second consecutive clean boundary — and the first since the lineage resumed, given the §200 gap between v0.6 and v0.7.
 
-The effective specification is now **455 sections across eight documents.**
+The effective specification is now **455 sections across nine documents.** *(Corrected — see [Part XXI](rfl-ae-prompt-packs-part21.md) §7.2: v0.1 is a distinct document, not subsumed by v0.2.)*
 
 ### 1.1 What v0.9 is
 

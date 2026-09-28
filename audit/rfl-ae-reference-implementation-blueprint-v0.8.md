@@ -6,7 +6,7 @@
 >
 > **Re-verification against a second supply (2026-09-28).** This document was supplied twice. Comparing the two, after normalizing whitespace, backticks, and the `---` separators above: **similarity 0.99985 with zero semantic difference** across all 90 sections. The only deltas were the §272 heading's em-dash and six trailing slashes in §273's `tools/` subtree — the latter corrected here, since every other directory in that tree carries a trailing slash. §305's `PARTIAL or UNKNOWN`, §308's determinism rule, and all counted enumerations are identical in both supplies. See [Part XIX](rfl-ae-prompt-packs-part19.md) §11.
 >
-> **Standing.** Begins at **§272**, continuing [`v0.7`](rfl-ae-executable-protocol-types-v0.7.md) (§201–§271). The effective specification is now **§0–§361 across seven documents**.
+> **Standing.** Begins at **§272**, continuing [`v0.7`](rfl-ae-executable-protocol-types-v0.7.md) (§201–§271). The effective specification is now **§0–§361 across eight supplied documents**. **§1–§28 is occupied twice** (v0.1 §1–§28 and v0.2 §0–§40 share 28 numbers, zero identical headings) — citations in that range MUST name the document. See [Part XXI](rfl-ae-prompt-packs-part21.md) §7.
 >
 > **Status:** NORMATIVE IMPLEMENTATION BLUEPRINT
 > **Predecessor:** v0.7 Executable Protocol Types & Schemas

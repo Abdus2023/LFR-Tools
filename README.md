@@ -44,6 +44,8 @@ LFR-Tools/
     ├── rfl-ae-prompt-packs-part19.md          Part XIX (v0.8, closures + contradiction)
     ├── rfl-ae-executable-protocol-kernel-v0.9.md  §362–§455, implementation contract
     ├── rfl-ae-prompt-packs-part20.md          Part XX (v0.9, closures + undeclared types)
+    ├── rfl-ae-conformance-evidence-release-v1.0.md  §456–§555, conformance + release
+    ├── rfl-ae-prompt-packs-part21.md          Part XXI (v1.0, two carried items move)
     └── rfl-ae-runall-receipt.log              stage-by-stage execution receipt
 ```
 
@@ -85,12 +87,16 @@ Every finding classified `PROVED` names the code path or command that establishe
 | Part XIX | **Analysis** | v0.8; strongest closure set, one contradiction |
 | Executable Protocol Kernel v0.9 | **Normative** | §362–§455; types, APIs, engines, release gate |
 | Part XX | **Analysis** | v0.9; largest closure set, three undeclared types |
+| Conformance, Evidence & Release v1.0 | **Normative** | §456–§555; fixtures, CI, freeze, release gate |
+| Part XXI | **Analysis** | v1.0; two long-carried items move |
 
-**The specification lineage (§0–§455)** spans eight documents and is analysed in Parts XII–XX. §361 concludes that *"the next stage is no longer primarily a prompt specification"*, and §455 adds that *"v0.9 does not claim that the kernel exists merely because this contract exists"* — both matching what Parts XV–XX found independently.
+**The specification lineage (§0–§555)** spans **ten** supplied documents, nine of which form a single numbered progression (v0.2 §0–§40 → v1.0 §456–§555, one gap at §200). Analysed in Parts XII–XXI.
 
-Part XV §2 records the one defect that stops work rather than permitting bad work: §86 defines the digest over `CanonicalCompiledPack` while §88 places `compiled_digest` inside that artifact. v0.7 §239 and v0.8 §302 each state the correct construction for *other* objects, leaving the pack instance untouched across three documents written to enable implementation.
+> **Citation rule — §1–§28 is occupied twice.** [`v0.1`](audit/rfl-ae-master-agent-instructions-v0.1.md) is §1–§28 and [`v0.2`](audit/rfl-ae-master-prompt-instructions-v0.2.md) is §0–§40. They share **28 section numbers and zero identical headings** (v0.1 §4 = *AUTHORITY*; v0.2 §2 = *AUTHORITY*). **Any citation from §1 to §28 MUST name its document.** §29–§555 is unambiguous. See [Part XXI](audit/rfl-ae-prompt-packs-part21.md) §7.
 
-**Recording convention (declared).** All nine verbatim documents in `audit/` carry a horizontal rule `---` before each section heading, and use fenced code blocks with language tags in place of the source's inline single-backtick wrapping. **Neither is part of the supplied sources** — they are presentation additions, one separator per section. No wording, number, identifier, or ordering is altered. See [Part XIX](audit/rfl-ae-prompt-packs-part19.md) §11.3 for how this was found and why it is declared rather than removed.
+Part XV §2 recorded the defect that stopped work rather than permitting bad work: v0.4 §86 defines the digest over `CanonicalCompiledPack` while §88 places `compiled_digest` inside that artifact. **v1.0 §541 partially closes it** — evidence binds both pack digests, placing the digest's binding locus outside the artifact it identifies. No exclusion rule was stated, so the remedy is positional rather than semantic. See [Part XXI](audit/rfl-ae-prompt-packs-part21.md) §4.
+
+**Recording convention (declared).** All ten verbatim documents in `audit/` carry a horizontal rule `---` before each section heading, and use fenced code blocks with language tags in place of the source's inline single-backtick wrapping. **Neither is part of the supplied sources** — they are presentation additions, one separator per section. No wording, number, identifier, or ordering is altered. See [Part XIX](audit/rfl-ae-prompt-packs-part19.md) §11.3 for how this was found and why it is declared rather than removed.
 
 Parts IX–XII carry a header noting their category, because a proposal, a specification, or an analysis must not inherit the audit's authority. Part XI's §170.1 records the one thing in it that *is* verifiable: six of its fifteen release-gate conditions are evaluable against the existing toolchain, and it fails all six.
 

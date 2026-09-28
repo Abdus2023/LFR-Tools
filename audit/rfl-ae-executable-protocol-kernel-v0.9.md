@@ -4,7 +4,7 @@
 >
 > **Recording conventions, declared.** Two presentation additions are present and are **not** part of the source: (1) a horizontal rule `---` before each section heading, one per section — this convention applies to **all nine recorded documents** in this corpus; (2) Markdown code fences with language tags in place of the source's inline single-backtick wrapping. Neither alters any word, number, identifier, or ordering. See [Part XIX](rfl-ae-prompt-packs-part19.md) §11.3.
 >
-> **Standing.** Begins at **§362**, continuing [`v0.8`](rfl-ae-reference-implementation-blueprint-v0.8.md) (§272–§361). v0.8 ends at §361 and v0.9 opens at §362 — **the range is contiguous**, with no unassigned section. The effective specification is now **§0–§455 across eight documents**.
+> **Standing.** Begins at **§362**, continuing [`v0.8`](rfl-ae-reference-implementation-blueprint-v0.8.md) (§272–§361). v0.8 ends at §361 and v0.9 opens at §362 — **the range is contiguous**, with no unassigned section. The effective specification is now **§0–§455 across nine supplied documents**. **§1–§28 is occupied twice** (v0.1 §1–§28 and v0.2 §0–§40 share 28 numbers, zero identical headings) — citations in that range MUST name the document. See [Part XXI](rfl-ae-prompt-packs-part21.md) §7.
 >
 > **Status:** NORMATIVE IMPLEMENTATION CONTRACT
 > **Predecessor:** v0.8 Reference Implementation Blueprint
