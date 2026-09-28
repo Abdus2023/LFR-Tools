@@ -1,0 +1,122 @@
+python : /tmp/rflvenv/bin/python
+repo   : /tmp/rflae
+markdown: 3.11
+
+════════ 1/7 geometry self-test ════════
+self-test
+==============================================================
+  PASS  cen centres odd width exactly
+  PASS  cen on even width lands one left (by design)
+  PASS  row() raises on overlap
+  PASS  row() raises on negative start
+  PASS  hjoin() raises on overlap
+  PASS  box left/right match border glyphs
+  PASS  box content rows span exactly left..right
+  PASS  boxfix right border at G+3 from its left (got 23, want 23)
+  PASS  no ASCII pipe in box borders
+  PASS  dchain length is 2n-1
+  PASS  tree gives root+spine+kids
+  PASS  padc pads to width
+
+all self-tests passed
+
+════════ 2/7 skills are well-formed ════════
+ok    ascii-diagram-forge
+ok    corpus-provenance-numbering
+ok    markdown-corpus-audit
+ok    placeholder-splice
+ok    skill-creator
+ok    spec-turn-closeout
+
+6 skill(s) valid
+
+════════ 3/7 corpus audit (33 documents) ════════
+===================================================================================
+FILE                   SECS        RANGE  FENCE  UNCL  CMT  LEAK  LINK         PROV
+===================================================================================
+ARCHITECTURE.md          51         1-51    218     0    0     0     0          n/a
+CONTRACTS.md             29      292-320    184     0    0     0     0          n/a
+DESIGN-IR.md             36      321-356    246     0    0     0     0          n/a
+EXECUTABLE-KERNEL.md     16      702-717    130     0    0     0     0   16/16 +702
+EXECUTION.md             44      419-462    170     0    0     0     0   44/44 +418
+FIRST-MIGRATION.md       30      611-640    144     0    0     0     0   30/30 +610
+FORMAL-CORE.md           27       81-107    140     0    0     0     0          n/a
+GATES.md                 32      387-418    188     0    0     0     0   32/32 +386
+KSIR-ANALYZER.md         22      680-701    124     0    0     0     0   22/22 +679
+KSIR-IMPL.md             19      641-659    108     0    0     0     0   19/19 +640
+KSIR-SLICE.md            20      660-679    112     0    0     0     0   20/20 +659
+KSIR.md                  47      204-250    192     0    0     0     0          n/a
+ORCHESTRATION.md         55      463-517    226     0    0     0     0   55/55 +462
+PROOF-CARRYING.md        29      775-803    206     0    0     0     0   29/29 +774
+PROTOCOL-IMPL.md         28      548-575    102     0    0     0     0   28/28 +547
+PROTOCOL-KERNEL.md       30      518-547    150     0    0     0     0   30/30 +517
+PROTOCOL-P58.md          35      576-610    168     0    0     0     0   35/35 +575
+PROTOCOL-V01.md          27      718-744    174     0    0     0     0   27/27 +717
+PROTOCOL.md              27      109-135    146     0    0     0     0          n/a
+RECONSTRUCTION.md        41      251-291    314     0    0     0     0          n/a
+RFL-EVIDENCE.md          28      866-893    160     0    0     0     0   28/28 +804
+RFL-GATES.md             32      894-925    158     0    0     0     0   32/32 +804
+RFL-LEDGER-V01.md        29      970-998    178     0    0     0     0   29/29 +969
+RFL-LEDGER.md            23      843-865    168     0    0     0     0   23/23 +804
+RFL-TRANSITION-V01.md    23      947-969    174     0    0     0     0   23/23 +946
+RFL-TRANSITION.md        20      823-842    120     0    0     0     0   20/20 +804
+RFL-TYPES-V01.md         21      926-946    150     0    0     0     0   21/21 +925
+RFL-TYPES.md             19      804-822    106     0    0     0     0   19/19 +803
+RUST-CORE.md             37      136-172    150     0    0     0     0          n/a
+SEMANTIC-LAYER.md        30      745-774    206     0    0     0     0   30/30 +744
+SPECIFICATION.md         29        52-80    102     0    0     0     0          n/a
+TRANSITIONS.md           31      173-203    158     0    0     0     0          n/a
+VERIFICATION.md          30      357-386    168     0    0     0     0   30/30 +356
+===================================================================================
+documents     : 33
+sections      : 997
+range         : 1 .. 998
+duplicates    : none
+gaps          : [108]
+
+ALL FILES OK
+
+════════ 4/7 every internal link resolves (rendered HTML) ════════
+BROKEN ANCHOR skills/markdown-corpus-audit/SKILL.md -> #4-does-not-exist   [excused: --allow]
+MISSING FILE  skills/markdown-corpus-audit/SKILL.md -> NOPE.md   [excused: --allow]
+
+files scanned : 50
+local links   : 851
+broken        : 0
+excused       : 2  (documented examples in: skills/markdown-corpus-audit/SKILL.md)
+
+════════ 5/7 last document audited in full ════════
+====================================================================
+AUDIT  RFL-LEDGER-V01.md
+====================================================================
+sections      : 29  first=970  last=998  expected=970..998
+fences        : 178  balanced  langs={'text': 79, 'rust': 10}
+rust blocks   : 10  delimiter problems=0
+render        : tables=2 h2=30 h3=8 code=89 unclassified=0 stray_pipes=0 cmthead=0 leak=0
+structure     : text_blocks=79 box_width=0 orphans=0 offcentre=0 ascii_sub=0
+provenance    : 29/29 comments, mapping errors=0 (offset 969)
+links         : anchors=38 internal=29 broken_anchors=0 md=2 broken_md=0
+probes        : 430 phrases, missing=0
+--------------------------------------------------------------------
+OK
+
+════════ 6/7 close-out ritual verified ════════
+====================================================================
+CLOSE-OUT  RFL-TRANSITION-V01.md -> RFL-LEDGER-V01.md
+====================================================================
+prev sections : 23 (last 969)
+new sections  : 29 (970..998)
+documents     : 33  corpus max section: 998
+forward link  : yes
+README bullet : yes
+README status : Thirty-three specification documents covering §1–§998
+--------------------------------------------------------------------
+CLOSE-OUT OK
+
+════════ 7/7 negative tests (each MUST fail) ════════
+  PASS  audit catches 8 planted defects  (exit 1, 8 findings)
+  PASS  close-out fails with no forward link  (exit 1, 3 findings)
+  PASS  splice aborts on an unreferenced diagram  (exit 1, 1 findings)
+  PASS  link checker catches a broken anchor and a missing target  (exit 1, 0 findings)
+
+RESULT: ALL STAGES PASSED
