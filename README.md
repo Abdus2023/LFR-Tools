@@ -28,6 +28,8 @@ LFR-Tools/
     ├── rfl-ae-prompt-packs-part11.md          Part XI  (normative spec, gate unmet)
     ├── rfl-ae-master-agent-instructions-v0.1.md   the 28-section operating contract
     ├── rfl-ae-prompt-packs-part12.md          Part XII (analysis of the above)
+    ├── rfl-ae-master-prompt-instructions-v0.2.md  the 40-section revision
+    ├── rfl-ae-prompt-packs-part13.md          Part XIII (v0.1 → v0.2 diff)
     └── rfl-ae-runall-receipt.log              stage-by-stage execution receipt
 ```
 
@@ -53,6 +55,8 @@ Every finding classified `PROVED` names the code path or command that establishe
 | Part XI | **Normative specification** | Binding requirements, **not yet implemented**; its §170 release gate is unmet |
 | Master Agent Instructions | **Normative** | 28-section operating contract |
 | Part XII | **Analysis** | Receipt mapping + self-consistency of the above |
+| Master Prompt Instructions v0.2 | **Normative** | 40-section revision; supersedes v0.1 |
+| Part XIII | **Analysis** | v0.1 → v0.2 diff; finding disposition |
 
 Parts IX–XII carry a header noting their category, because a proposal, a specification, or an analysis must not inherit the audit's authority. Part XI's §170.1 records the one thing in it that *is* verifiable: six of its fifteen release-gate conditions are evaluable against the existing toolchain, and it fails all six.
 
