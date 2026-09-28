@@ -46,6 +46,8 @@ LFR-Tools/
     ├── rfl-ae-prompt-packs-part20.md          Part XX (v0.9, closures + undeclared types)
     ├── rfl-ae-conformance-evidence-release-v1.0.md  §456–§555, conformance + release
     ├── rfl-ae-prompt-packs-part21.md          Part XXI (v1.0, two carried items move)
+    ├── rfl-ae-fixture-corpus-conformance-manifest-v1.1.md  §556–§655, fixture corpus
+    ├── rfl-ae-prompt-packs-part22.md          Part XXII (v1.1, coverage derived)
     └── rfl-ae-runall-receipt.log              stage-by-stage execution receipt
 ```
 
@@ -89,14 +91,16 @@ Every finding classified `PROVED` names the code path or command that establishe
 | Part XX | **Analysis** | v0.9; largest closure set, three undeclared types |
 | Conformance, Evidence & Release v1.0 | **Normative** | §456–§555; fixtures, CI, freeze, release gate |
 | Part XXI | **Analysis** | v1.0; two long-carried items move |
+| Fixture Corpus & Conformance Manifest v1.1 | **Normative** | §556–§655; manifest, corpus, comparison |
+| Part XXII | **Analysis** | v1.1; coverage derived by example, one class dropped |
 
-**The specification lineage (§0–§555)** spans **ten** supplied documents, nine of which form a single numbered progression (v0.2 §0–§40 → v1.0 §456–§555, one gap at §200). Analysed in Parts XII–XXI.
+**The specification lineage (§0–§655)** spans **eleven** supplied documents, ten of which form a single numbered progression (v0.2 §0–§40 → v1.1 §556–§655, one gap at §200). Analysed in Parts XII–XXII.
 
 > **Citation rule — §1–§28 is occupied twice.** [`v0.1`](audit/rfl-ae-master-agent-instructions-v0.1.md) is §1–§28 and [`v0.2`](audit/rfl-ae-master-prompt-instructions-v0.2.md) is §0–§40. They share **28 section numbers and zero identical headings** (v0.1 §4 = *AUTHORITY*; v0.2 §2 = *AUTHORITY*). **Any citation from §1 to §28 MUST name its document.** §29–§555 is unambiguous. See [Part XXI](audit/rfl-ae-prompt-packs-part21.md) §7.
 
 Part XV §2 recorded the defect that stopped work rather than permitting bad work: v0.4 §86 defines the digest over `CanonicalCompiledPack` while §88 places `compiled_digest` inside that artifact. **v1.0 §541 partially closes it** — evidence binds both pack digests, placing the digest's binding locus outside the artifact it identifies. No exclusion rule was stated, so the remedy is positional rather than semantic. See [Part XXI](audit/rfl-ae-prompt-packs-part21.md) §4.
 
-**Recording convention (declared).** All ten verbatim documents in `audit/` carry a horizontal rule `---` before each section heading, and use fenced code blocks with language tags in place of the source's inline single-backtick wrapping. **Neither is part of the supplied sources** — they are presentation additions, one separator per section. No wording, number, identifier, or ordering is altered. See [Part XIX](audit/rfl-ae-prompt-packs-part19.md) §11.3 for how this was found and why it is declared rather than removed.
+**Recording convention (declared).** All eleven verbatim documents in `audit/` carry a horizontal rule `---` before each section heading, and use fenced code blocks with language tags in place of the source's inline single-backtick wrapping. **Neither is part of the supplied sources** — they are presentation additions, one separator per section. No wording, number, identifier, or ordering is altered. See [Part XIX](audit/rfl-ae-prompt-packs-part19.md) §11.3 for how this was found and why it is declared rather than removed.
 
 Parts IX–XII carry a header noting their category, because a proposal, a specification, or an analysis must not inherit the audit's authority. Part XI's §170.1 records the one thing in it that *is* verifiable: six of its fifteen release-gate conditions are evaluable against the existing toolchain, and it fails all six.
 
