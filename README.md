@@ -52,6 +52,8 @@ LFR-Tools/
     ├── rfl-ae-prompt-packs-part23.md          Part XXIII (v1.2, scope relation inverted)
     ├── rfl-ae-coverage-evaluation-conformance-aggregation-v1.3.md  §801–§997, coverage + aggregation
     ├── rfl-ae-prompt-packs-part24.md          Part XXIV (v1.3, derivation closed, domains open)
+    ├── rfl-ae-release-gate-manifest-v1.4.md   §998–§1200, release gate + manifest
+    ├── rfl-ae-prompt-packs-part25.md          Part XXV (v1.4, scope restored, supersession ledger)
     └── rfl-ae-runall-receipt.log              stage-by-stage execution receipt
 ```
 
@@ -101,18 +103,22 @@ Every finding classified `PROVED` names the code path or command that establishe
 | Part XXIII | **Analysis** | v1.2; §749's scope relation inverted, `Covered` undefined |
 | Coverage & Conformance Aggregation v1.3 | **Normative** | §801–§997; coverage derivation, policy, claim |
 | Part XXIV | **Analysis** | v1.3; derivation closed by rule, five domains left unenumerated |
+| Release Gate & Manifest v1.4 | **Normative** | §998–§1200; gate, freeze, manifest, bootstrap |
+| Part XXV | **Analysis** | v1.4; scope relation restored, supersession ledger introduced |
 
-**The specification lineage (§0–§997)** spans **thirteen** supplied documents, twelve of which form a single numbered progression (v0.2 §0–§40 → v1.3 §801–§997, one gap at §200). Analysed in Parts XII–XXIV.
+**The specification lineage (§0–§1200)** spans **fourteen** supplied documents, thirteen of which form a single numbered progression (v0.2 §0–§40 → v1.4 §998–§1200, one gap at §200). Analysed in Parts XII–XXV.
+
+**Supersession ledger (Part XXV §11).** Because the documents are additive, a defect is never edited out — a later document either **closes it correctively**, **supersedes it in substance** (the earlier text is still wrong but unreachable by a conforming implementation), or leaves it **open**. Findings must be counted per bucket, not per list. Worked example: v1.2 §749's inverted `CLAIMED_SCOPE ⊇ EXECUTED_SCOPE` is now **superseded in substance** by v1.4 §1071 + §1200, and still wrong in text.
 
 > **Four different 997s — do not conflate them.** The union's highest section number is now **§997**. The audited repository's own *"997 sections"* claim (the closed cosmetic finding, Parts II–VIII) is **unrelated** to it, as are v1.2 §788's `997 / 1000 passed` counter-example and v1.3 §924's `997` required fixtures. The first is a closed repository matter; the other three are the specification's own illustrative numbers.
 
-> **Citation rule — §1–§28 is occupied twice.** [`v0.1`](audit/rfl-ae-master-agent-instructions-v0.1.md) is §1–§28 and [`v0.2`](audit/rfl-ae-master-prompt-instructions-v0.2.md) is §0–§40. They share **28 section numbers and zero identical headings** (v0.1 §4 = *AUTHORITY*; v0.2 §2 = *AUTHORITY*). **Any citation from §1 to §28 MUST name its document.** §29–§997 is unambiguous. See [Part XXI](audit/rfl-ae-prompt-packs-part21.md) §7.
+> **Citation rule — §1–§28 is occupied twice.** [`v0.1`](audit/rfl-ae-master-agent-instructions-v0.1.md) is §1–§28 and [`v0.2`](audit/rfl-ae-master-prompt-instructions-v0.2.md) is §0–§40. They share **28 section numbers and zero identical headings** (v0.1 §4 = *AUTHORITY*; v0.2 §2 = *AUTHORITY*). **Any citation from §1 to §28 MUST name its document.** §29–§1200 is unambiguous. See [Part XXI](audit/rfl-ae-prompt-packs-part21.md) §7.
 
 Part XV §2 recorded the defect that stopped work rather than permitting bad work: v0.4 §86 defines the digest over `CanonicalCompiledPack` while §88 places `compiled_digest` inside that artifact. **v1.0 §541 partially closes it** — evidence binds both pack digests, placing the digest's binding locus outside the artifact it identifies. No exclusion rule was stated, so the remedy is positional rather than semantic. See [Part XXI](audit/rfl-ae-prompt-packs-part21.md) §4.
 
-**Recording convention (declared).** All thirteen verbatim documents in `audit/` carry a horizontal rule `---` before each section heading, and use fenced code blocks with language tags in place of the source's inline single-backtick wrapping. **Neither is part of the supplied sources** — they are presentation additions, one separator per section. No wording, number, identifier, or ordering is altered. See [Part XIX](audit/rfl-ae-prompt-packs-part19.md) §11.3 for how this was found and why it is declared rather than removed.
+**Recording convention (declared).** All fourteen verbatim documents in `audit/` carry a horizontal rule `---` before each section heading, and use fenced code blocks with language tags in place of the source's inline single-backtick wrapping. **Neither is part of the supplied sources** — they are presentation additions, one separator per section. No wording, number, identifier, or ordering is altered. See [Part XIX](audit/rfl-ae-prompt-packs-part19.md) §11.3 for how this was found and why it is declared rather than removed.
 
-**Header counts are positional, and this is declared here so it is not read as an undercount.** Each recorded document's provenance header states the size of the lineage **at the moment that document was recorded** — so v0.8's header says *eight*, v0.9's *nine*, v1.0's *ten*, v1.1's *eleven*, v1.2's *twelve*, v1.3's *thirteen*. Those are historical statements, not claims about the corpus today; this README is the only file that states the **current** size (§0–§997 across thirteen documents). The same applies to the phrase *"all N recorded documents"* in each header. Earlier versions of this corpus carried a genuine undercount — the headers said seven/eight/nine while the lineage was already eight/nine/ten — and that defect is closed by this convention, not by repeatedly re-writing thirteen headers.
+**Header counts are positional, and this is declared here so it is not read as an undercount.** Each recorded document's provenance header states the size of the lineage **at the moment that document was recorded** — so v0.8's header says *eight*, v0.9's *nine*, v1.0's *ten*, v1.1's *eleven*, v1.2's *twelve*, v1.3's *thirteen*, v1.4's *fourteen*. Those are historical statements, not claims about the corpus today; this README is the only file that states the **current** size (§0–§1200 across fourteen documents). The same applies to the phrase *"all N recorded documents"* in each header. Earlier versions of this corpus carried a genuine undercount — the headers said seven/eight/nine while the lineage was already eight/nine/ten — and that defect is closed by this convention, not by repeatedly re-writing fourteen headers.
 
 Parts IX–XII carry a header noting their category, because a proposal, a specification, or an analysis must not inherit the audit's authority. Part XI's §170.1 records the one thing in it that *is* verifiable: six of its fifteen release-gate conditions are evaluable against the existing toolchain, and it fails all six.
 
