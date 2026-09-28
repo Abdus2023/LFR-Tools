@@ -26,6 +26,8 @@ LFR-Tools/
     ├── rfl-ae-prompt-instruction-packs.md     Part IX  (design proposal)
     ├── rfl-ae-prompt-packs-part10.md          Part X   (design proposal)
     ├── rfl-ae-prompt-packs-part11.md          Part XI  (normative spec, gate unmet)
+    ├── rfl-ae-master-agent-instructions-v0.1.md   the 28-section operating contract
+    ├── rfl-ae-prompt-packs-part12.md          Part XII (analysis of the above)
     └── rfl-ae-runall-receipt.log              stage-by-stage execution receipt
 ```
 
@@ -49,8 +51,12 @@ Every finding classified `PROVED` names the code path or command that establishe
 | Consolidated | **Audit** | De-duplicated from Parts I–VIII |
 | Parts IX–X | **Design proposal** | No empirical claims; every section is `PROPOSED`, not `PROVED` |
 | Part XI | **Normative specification** | Binding requirements, **not yet implemented**; its §170 release gate is unmet |
+| Master Agent Instructions | **Normative** | 28-section operating contract |
+| Part XII | **Analysis** | Receipt mapping + self-consistency of the above |
 
-Parts IX–XI carry a header noting this distinction, because a proposal or a specification must not inherit the audit's authority. Part XI's §170.1 records the one thing in it that *is* verifiable: six of its fifteen release-gate conditions are evaluable against the existing toolchain, and it fails all six.
+Parts IX–XII carry a header noting their category, because a proposal, a specification, or an analysis must not inherit the audit's authority. Part XI's §170.1 records the one thing in it that *is* verifiable: six of its fifteen release-gate conditions are evaluable against the existing toolchain, and it fails all six.
+
+**Part XII's principal result:** the operating contract and the current toolchain are **mutually inconsistent.** Ten sections of the contract have direct, executed violations in `vendor/rfl-ae/`. An agent obeying §9 and §27 must downgrade `run_all.sh`'s clean exit-0 to `PARTIAL`, because §8's scope relation cannot be established anywhere in the toolchain. Reconciling this is what `PHASE 0` exists for.
 
 ## The four critical findings
 
