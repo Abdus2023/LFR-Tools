@@ -323,6 +323,17 @@ What `neg()` reports:
 
 **The negative test passes while the checker never ran.**
 
+**Amended — see [Part VIII §0.1](rfl-ae-skills-review-part8.md).** This defect is broader than the crash case. A two-environment differential on the `8 planted defects` fixture shows the harness reports `PASS` while detecting **6 findings in a bare environment and 8 with `markdown` installed**:
+
+```text
+bare:  PASS  audit catches 8 planted defects  (exit 1, 6 findings)
+full:  PASS  audit catches 8 planted defects  (exit 1, 8 findings)
+```
+
+The description asserts 8; the count is informational and never asserted, so a 25% loss of sensitivity is invisible. The two undetected defects are the render-dependent ones — including the unclassified-fence check for the incident that created the strict-mode rule (*"37 placeholders were spliced outside their fences"*). This is a **fourth surviving mutant**, and the highest-value of the four. Priority: this ranks with the P0 items, and §104's `mktemp -d` fix should land with it.
+
+> **Correction.** An earlier revision of this document and of Part IV quoted the bare-environment line (`6 findings`) while attributing it to Part III's stage 7, whose committed receipt reads `8`. Both runs are genuine; the attribution was wrong, and the two numbers were never compared. See Part VIII §0.2.
+
 **Why this compounds.** It is two earlier findings combining:
 
 ```text
@@ -1303,6 +1314,7 @@ Every finding, de-duplicated, with the parts in which it was established. `I` = 
 | C-4 | Negative-test harness accepts a crash as a pass | PROVED | VII §0.2, VII §90 | execution |
 | C-5 | Corpus sweep covers 5 of 11 invariants | PROVED | III §21 | source + output |
 | C-6 | Closeout verifies content, not publication; SKILL prescribes `git ls-remote` | PROVED | I §25, VII §80 | source |
+| C-7 | Negative-test sensitivity is environment-dependent; 6 vs 8 findings, both PASS | PROVED | VIII §0.1 | 2-env differential |
 
 ### High
 
