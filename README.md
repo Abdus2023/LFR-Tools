@@ -34,6 +34,8 @@ LFR-Tools/
     ├── rfl-ae-prompt-packs-part14.md          Part XIV (v0.3 analysis)
     ├── rfl-ae-prompt-pack-specification-v0.4.md   §71–§105, implementable
     ├── rfl-ae-prompt-packs-part15.md          Part XV (v0.4, blocking analysis)
+    ├── rfl-ae-prompt-instructions-v0.5.md     §106–§149, runtime contract
+    ├── rfl-ae-prompt-packs-part16.md          Part XVI (v0.5, closures + matrix)
     └── rfl-ae-runall-receipt.log              stage-by-stage execution receipt
 ```
 
@@ -65,8 +67,10 @@ Every finding classified `PROVED` names the code path or command that establishe
 | Part XIV | **Analysis** | v0.3 analysis; additive-revision findings |
 | Prompt Pack Specification v0.4 | **Normative** | §71–§105; executable-pack schemas |
 | Part XV | **Analysis** | v0.4; one **blocking** defect + gate reconciliation |
+| Runtime & Execution Contract v0.5 | **Normative** | §106–§149; the enforcement component |
+| Part XVI | **Analysis** | v0.5; two findings closed, §145 matrix measured |
 
-**The specification lineage (§0–§105)** spans three documents and is analysed in Parts XII–XV. Part XV's §2 records the one defect that stops work rather than permitting bad work: §86 defines the digest over `CanonicalCompiledPack` while §88 places `compiled_digest` inside that artifact. Three of v0.4's fifteen release gates cannot be executed until it is resolved.
+**The specification lineage (§0–§149)** spans four documents and is analysed in Parts XII–XVI. Part XV §2 records the one defect that stops work rather than permitting bad work: §86 defines the digest over `CanonicalCompiledPack` while §88 places `compiled_digest` inside that artifact. Part XVI §8 shows v0.5's own release gate is now downstream of it too.
 
 Parts IX–XII carry a header noting their category, because a proposal, a specification, or an analysis must not inherit the audit's authority. Part XI's §170.1 records the one thing in it that *is* verifiable: six of its fifteen release-gate conditions are evaluable against the existing toolchain, and it fails all six.
 
