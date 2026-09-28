@@ -42,6 +42,8 @@ LFR-Tools/
     ├── rfl-ae-prompt-packs-part18.md          Part XVIII (v0.7, closures + dropped closure)
     ├── rfl-ae-reference-implementation-blueprint-v0.8.md  §272–§361, kernel blueprint
     ├── rfl-ae-prompt-packs-part19.md          Part XIX (v0.8, closures + contradiction)
+    ├── rfl-ae-executable-protocol-kernel-v0.9.md  §362–§455, implementation contract
+    ├── rfl-ae-prompt-packs-part20.md          Part XX (v0.9, closures + undeclared types)
     └── rfl-ae-runall-receipt.log              stage-by-stage execution receipt
 ```
 
@@ -81,12 +83,14 @@ Every finding classified `PROVED` names the code path or command that establishe
 | Part XVIII | **Analysis** | v0.7; four closures, one dropped closure |
 | Reference Implementation Blueprint v0.8 | **Normative** | §272–§361; kernel, engines, conformance |
 | Part XIX | **Analysis** | v0.8; strongest closure set, one contradiction |
+| Executable Protocol Kernel v0.9 | **Normative** | §362–§455; types, APIs, engines, release gate |
+| Part XX | **Analysis** | v0.9; largest closure set, three undeclared types |
 
-**The specification lineage (§0–§361)** spans seven documents and is analysed in Parts XII–XIX. §361 itself concludes that *"the next stage is no longer primarily a prompt specification"* — which matches what Parts XV–XIX found independently.
+**The specification lineage (§0–§455)** spans eight documents and is analysed in Parts XII–XX. §361 concludes that *"the next stage is no longer primarily a prompt specification"*, and §455 adds that *"v0.9 does not claim that the kernel exists merely because this contract exists"* — both matching what Parts XV–XX found independently.
 
 Part XV §2 records the one defect that stops work rather than permitting bad work: §86 defines the digest over `CanonicalCompiledPack` while §88 places `compiled_digest` inside that artifact. v0.7 §239 and v0.8 §302 each state the correct construction for *other* objects, leaving the pack instance untouched across three documents written to enable implementation.
 
-**Recording convention (declared).** All eight verbatim documents in `audit/` carry a horizontal rule `---` before each section heading, and use fenced code blocks with language tags in place of the source's inline single-backtick wrapping. **Neither is part of the supplied sources** — they are presentation additions, one separator per section. No wording, number, identifier, or ordering is altered. See [Part XIX](audit/rfl-ae-prompt-packs-part19.md) §11.3 for how this was found and why it is declared rather than removed.
+**Recording convention (declared).** All nine verbatim documents in `audit/` carry a horizontal rule `---` before each section heading, and use fenced code blocks with language tags in place of the source's inline single-backtick wrapping. **Neither is part of the supplied sources** — they are presentation additions, one separator per section. No wording, number, identifier, or ordering is altered. See [Part XIX](audit/rfl-ae-prompt-packs-part19.md) §11.3 for how this was found and why it is declared rather than removed.
 
 Parts IX–XII carry a header noting their category, because a proposal, a specification, or an analysis must not inherit the audit's authority. Part XI's §170.1 records the one thing in it that *is* verifiable: six of its fifteen release-gate conditions are evaluable against the existing toolchain, and it fails all six.
 
