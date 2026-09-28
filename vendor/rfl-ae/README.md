@@ -1,0 +1,461 @@
+# RFL-AE
+
+**Rust-for-Linux Autonomous Engineering**
+
+Skills, tools, and agentic architectures for an AI system to assist in rewriting the Linux
+kernel in Rust — built around a Kernel Semantic IR, an independent evidence plane, and a
+non-self-validating release gate.
+
+## Documents
+
+- **[ARCHITECTURE.md](ARCHITECTURE.md)** (§1–§51) — the founding architecture specification:
+  core C subsystem landscape, competency domains K0–K12, agent roles, KSIR, the evidence
+  model, benchmark families B01–B10, migration planning (M0–M3, semantic cut), and the
+  RFL-AE v0.1 module layout.
+- **[SPECIFICATION.md](SPECIFICATION.md)** (§52–§80) — the v0.1 engineering specification:
+  repository layout, immutable domain model, the contract set (function / ownership /
+  concurrency / execution-context / Rust Design IR), safety obligations, agent protocol and
+  authorization states, the layered verification pipeline (V0–V10), differential equivalence
+  dimensions (E0–E8), subsystem qualification, the Kernel Invariant Ledger, and the Migration
+  Certificate.
+- **[FORMAL-CORE.md](FORMAL-CORE.md)** (§81–§107) — the frozen formal core: KSIR v0.1, core
+  Rust domain types, evidence-carrying values, the two-axis status algebra, the evidence and
+  provenance model, the 20-benchmark suite (C01–C10, R01–R05, V01–V05), anti-hallucination and
+  contradiction benchmarks, tool authority levels T0–T6, agent separation, the migration
+  manifest and commit protocol, subsystem QA (LOCK/RCU/MM/SCHED), and RFL-AE-LAB-001.
+- **[PROTOCOL.md](PROTOCOL.md)** (§109–§135) — the multi-agent execution protocol: message
+  envelope, capability-based authority and scope, task admission, the migration-unit state
+  machine and quarantine, conflict objects, knowledge-state separation, the canonical artifact
+  store, immutable event ledger and deterministic replay, execution receipts, agent topology
+  and the 63-agent taxonomy, worktree isolation, patch promotion, the readiness predicate, the
+  implementation-admission gate, data vs. control plane, and the L0–L13 v0.2 layer stack.
+- **[RUST-CORE.md](RUST-CORE.md)** (§136–§172) — the concrete Rust core: 31 declared types
+  (opaque IDs, `KernelSnapshot`, `Epistemic<T>`, `VerificationStatus`, `Task`, `Scope`,
+  `Capability`, `CapabilityGrant`, `Authorization`, `Artifact`, `Event`, `Evidence`, `Contract`,
+  `ContractKnowledge<T>`, `RustDesign`, `UnsafeObligation`, `AgentOutcome`), the
+  `TransitionEngine`, protocol invariants P1–P10, the conformance and adversarial protocol
+  suites, agent manifests, scheduling, and the PHASE 0–11 development order.
+- **[TRANSITIONS.md](TRANSITIONS.md)** (§173–§203) — `RFL-AE-PROTOCOL-001`, the normative
+  transition system: the 7-stage validation kernel, the 11-row normative transition table,
+  illegal transitions as specification, transition predicates, typed `ProtocolError` rejection
+  reasons, unknown severity, dependency conditions, semantic vs. source dependency, contract
+  normal form, claim graph, epochs and staleness propagation, writer leases, the read/write
+  authority matrix, `VerificationMatrix` and gate algebra, protocol self-verification, proof
+  obligations P-001–P-010, and the trusted/untrusted LLM boundary.
+- **[KSIR.md](KSIR.md)** (§204–§250) — the Kernel Semantic IR: layering (structural /
+  behavioral / contractual), the `Ksir` root, `KsirFunction`, the pointer model with
+  `PointerOwnership` / `Nullability` / `AliasingModel`, object and storage-class models, the
+  lifetime graph and refcount/RCU contracts, the concurrency graph and sync-primitive taxonomy,
+  execution context, sleepability, allocation context, the effects system, callback and
+  temporal graphs, memory ordering, architecture dependencies, ABI, FFI, user memory, DMA,
+  MMIO, invariants, semantic classification, the query engine and blocker query, failure modes
+  F1–F7, acceptance criteria KSIR-001–KSIR-015, and the QA corpus.
+- **[RECONSTRUCTION.md](RECONSTRUCTION.md)** (§251–§291) — the semantic reconstruction
+  engine: the analysis backend architecture and its authority table, `AnalysisObservation`
+  and reproducible backend identity, build variants and configuration domains, compiler
+  command fidelity, Linux-specific semantic hazards, the structural pipeline, call graphs
+  and indirect-call reachability, effect and execution-context propagation, the context
+  lattice, lock and path-sensitive lockset analysis, ownership, refcount, RCU, callback,
+  temporal-ownership, alias, memory-region, ABI and architecture reconstruction, the
+  reconciliation engine and its states, conflict as data, the no-consensus rule, evidence
+  reconciliation, semantic fact vs verified claim, the semantic dependency graph, migration
+  dependency extraction, agent decomposition and the worker contract, the critical unknown
+  detector, the crate structure, and acceptance criteria SR-001–SR-012.
+- **[CONTRACTS.md](CONTRACTS.md)** (§292–§320) — kernel contract reconstruction:
+  `KernelContract` and contract status, preconditions and postconditions, invariants and
+  invariant preservation, contract normal form, the 17-domain contract surface, temporal /
+  concurrency / context contracts, API contract generation, Rust design alternatives, design
+  obligations, unsafe boundary generation and the unsafe budget, contract-to-test generation,
+  contract differential testing, contract refinement, contract completeness and the
+  `G-CONTRACT-001`…`008` gate, the contract compiler, the agent boundary, the contract review
+  agent, the counterexample engine, the migration unit contract package, the end-to-end proof
+  chain, and the Rust Design IR transition.
+- **[DESIGN-IR.md](DESIGN-IR.md)** (§321–§356) — the Rust Design IR: the `RustDesign` root and
+  its `source_contract`, design vs implementation, representation mapping, the Rust type
+  taxonomy and semantic roles, ownership mapping and transfer events, lifetime design,
+  self-referential structures and pinning obligations, synchronization mapping, lock
+  encapsulation and ordering, atomic and RCU design mapping, context-preserving API design,
+  contract enforcement strength, FFI boundaries and trust classification, ABI-preserving vs
+  ABI-breaking migration, architecture mapping, error mapping and error contracts,
+  initialization design and typestate candidates, callback design and reentrancy, design
+  rejection, search and selection, the design gate, the Rust implementation boundary, generated
+  safety obligations, the design-to-verification chain, the complete migration compiler, and the
+  three IRs.
+- **[VERIFICATION.md](VERIFICATION.md)** (§357–§386, source §§1–§30) — the Verification IR:
+  `VerificationPlan`, `VerificationObligation`, the closed `VerificationCategory` taxonomy, the
+  `Proposition` algebra, the claim ≠ test ≠ evidence chain, the `OracleKind` model and oracle
+  independence, differential verification and normalization, verification scope, the
+  configuration and architecture matrices, static and dynamic verification, CI authority,
+  concurrency verification, counterexamples and shrinking, mutation verification, verification
+  adequacy, the verification state machine, authority separation, the adversarial verifier, the
+  verification compiler, the crate architecture, the migration certificate, and the complete
+  evidence chain. Section headings carry machine-readable `source: VERIFICATION.md §n`
+  provenance comments.
+- **[GATES.md](GATES.md)** (§387–§418, source §§1–§32) — the gate engine and migration
+  certificate compiler: the gate invariant, the `Gate` model and severity, the constrained
+  `GatePredicate` algebra, `GateEvaluation` and `FAIL != BLOCKED`, the gate dependency graph
+  and gate families, the snapshot / scope / contract / design / unsafe / ABI / context /
+  lifetime / concurrency / verification gates, evidence validity and freshness, gate policy
+  versioning, release eligibility and the release predicate, unknown handling, the migration
+  certificate compiler and its structure, certificate invalidation, release authority, human
+  review, the complete RFL-AE architecture, the four-layer trust architecture, and the
+  Execution & Evidence Runtime. Same provenance convention as `VERIFICATION.md`.
+- **[EXECUTION.md](EXECUTION.md)** (§419–§462, source §§1–§44) — the Execution & Evidence
+  Runtime: the missing trust boundary between "the system says it ran" and "we can prove
+  exactly what ran", the execution trust chain, `ExecutionRequest`, capability-based
+  authorization and scope binding, canonical `CommandSpec` / `ExecutableIdentity` /
+  `EnvironmentFingerprint`, worktree isolation and deny-by-default network policy, the
+  execution lifecycle, the three separate dimensions `ExecutionStatus` / `ProcessOutcome` /
+  `EvidenceStatus`, canonical content-addressed `ExecutionReceipt`, digested artifacts and
+  roles, immutability and append-only invalidation, `EvidenceRecord` and the nine-clause
+  binder, the evidence graph and reverse provenance, replay manifests and reproducibility
+  tiers, nondeterminism classification, tool receipts and the capability registry, execution
+  vs semantic vs gate authority, typed execution failures, the security boundary, receipt
+  signing, evidence strength and independence, execution provenance, the runtime crate
+  structure, acceptance criteria `EXE-001`–`EXE-015`, the `RFL-EXEC-LAB-001` vertical slice,
+  the `EXE-QA-001`–`EXE-QA-015` adversarial suite, the twelve-condition trust theorem, and the
+  closed evidence loop. Same provenance convention as `VERIFICATION.md`.
+- **[ORCHESTRATION.md](ORCHESTRATION.md)** (§463–§517, source §§1–§55) — the Orchestration IR
+  and deterministic scheduler, treated as a **protocol executor** rather than an intelligent
+  project manager: `OrchestrationPlan`, the semantic migration graph and why
+  `source graph ≠ semantic graph`, migration-unit readiness, scheduling as a state transition
+  (`scheduler ≠ state authority`), the agent model, capability as demonstrable evidence rather
+  than competence, capability and authority matching, work and worktree leases, epochs and
+  stale work, determinism and the scheduling key, fairness quotas, dependency-aware and
+  critical-path scheduling, the event-driven scheduler, immutable assignments, agent crash
+  recovery, idempotency and at-least-once dispatch, duplicate execution versus independence,
+  quarantine and its recovery, conflict resolution without voting, unknowns as scheduling
+  dependencies, automatic evidence tasks, the orchestration state machine, deterministic replay
+  and logical time, the scheduler event log, restart recovery and external reconciliation,
+  resource scheduling and starvation, cancellation, priority inversion, the multi-agent
+  verification topology and the no-self-verification rule, orchestration policy, acceptance
+  criteria `ORCH-001`–`ORCH-017`, the scheduler crate architecture, the resulting authority
+  model, and the frozen **RFL-AE Core Invariants** `RFL-AE-I001`–`I015`. Same provenance
+  convention as `VERIFICATION.md`.
+- **[PROTOCOL-KERNEL.md](PROTOCOL-KERNEL.md)** (§518–§547, source §§1–§30) — the protocol
+  kernel, where the specification becomes an executable state machine: the trust boundary from
+  untrusted proposal side through the kernel to the append-only event store and canonical
+  state, the normative `Command ≠ Event` distinction, the canonical event envelope carrying
+  both `state_before` and `state_after`, opaque typed IDs, the transition algebra,
+  `ProtocolState`, the deterministic reducer, declarative `TransitionSpec` with its eleven
+  preconditions, atomicity with the event as commit boundary, optimistic concurrency and the
+  CAS boundary, the `EventStore` trait, the event hash chain, structured `ProtocolError`,
+  rejected command versus authorized operation failure, the executable migration transition
+  table, the strict verification transition, event-sourced projections, snapshotting, three
+  distinct version axes, event evolution, the `PROTO-001`–`PROTO-020` conformance suite, the
+  `ATTACK-001`–`ATTACK-020` adversarial suite, the minimal `rfl-protocol` crate, dependency
+  direction without authority recursion, the first executable vertical slice, the three
+  protocol theorems, and the separation of semantic, protocol, execution, scheduling and
+  release authority. Same provenance convention as `VERIFICATION.md`.
+- **[PROTOCOL-IMPL.md](PROTOCOL-IMPL.md)** (§548–§575, source §§1–§28) — the protocol kernel
+  as a concrete API and transition implementation: the repository skeleton, `rfl-types` with
+  the `typed_id!` macro so `TaskId != AgentId` even though both are UUIDs, the `Digest` type
+  and explicit `DigestAlgorithm`, snapshot identity where the immutable digest is
+  authoritative, `MigrationState`, `Operation`, `TransitionCommand` and its `ExpectedState`
+  optimistic-concurrency contract, explicit `Authorization` and `AuthorityClass`, capability
+  kept separate from authorization, `ProtocolState` over `BTreeMap` for deterministic hashing,
+  `MigrationRecord` with no confidence score, the `TransitionEngine` and its validation
+  ordering, `TransitionPlan`, `ProtocolEvent` and `EventKind`, the deliberately boring reducer
+  and what it must never do, the in-memory `EventStore` and its CAS append, `replay` with
+  `state_before`/`state_after` divergence detection, the lifecycle / illegal-transition /
+  authorization / epoch / tamper tests, the `PROTO-GATE-001` checklist, the frozen crate
+  dependency boundary, and the P0–P10 implementation progression. Rust here is specification,
+  not a compiled crate. Same provenance convention as `VERIFICATION.md`.
+- **[PROTOCOL-P58.md](PROTOCOL-P58.md)** (§576–§610, source §§1–§35) — connecting persistence,
+  evidence and gates to the kernel without letting any of them become hidden authority. **P5**
+  persistence: the append-only event log, its length-delimited physical record, the locking
+  append protocol, explicit `RecoveryStatus` crash semantics with no silent truncation, and the
+  rule that `event constructed ≠ event accepted ≠ event durably persisted ≠ operation executed ≠
+  claim verified`. **P6** evidence binding: `EvidenceRef` references rather than bytes,
+  `EvidenceValidity`, dependency-driven rather than global invalidation, a
+  `VerificationSubmission` that cannot merely carry `status: Verified`, per-obligation
+  `ObligationResult`, semantic coverage, and `OracleKind` with `ComparisonRelation` so that
+  `C output == Rust output` is never a universal rule. **P7** gates: the gate algebra as typed
+  predicates and `GateExpr`, the implementation/test/release gates, and `GateStatus` keeping
+  `FAIL` distinct from `BLOCKED` because `UNKNOWN ≠ FALSE`. **P8** certificates:
+  `MigrationCertificate` as a claim and not release authority, the full source-to-release chain,
+  typed `EventPayload`, dependency invalidation, stale versus invalid, epoch advancement as a
+  transition, canonical serialization, the frozen lifecycle transition table, the quarantine
+  authority-suppression invariant, the protocol QA matrix, and the release boundary. Same
+  provenance convention as `VERIFICATION.md`.
+- **[FIRST-MIGRATION.md](FIRST-MIGRATION.md)** (§611–§640, source §§1–§29 plus the unnumbered
+  *Frozen next milestone*) — the first closed-loop migration unit. The goal is not to migrate a
+  meaningful subsystem but to prove RFL-AE can take **one bounded C unit through the entire
+  authority/evidence pipeline** without bypassing its own protocol: the frozen
+  `RFL-AE-LAB-001 / MU-000001` slice, a small kernel-like C fixture whose ownership relationship
+  is deliberately *not* obvious from syntax alone, expected KSIR facts, controlled unknowns that
+  prove `unsupported analysis ↓ UNKNOWN` rather than `assumed safe`, the contract compiler and
+  its evidence-referenced statements, the contract graph, ownership/lock/callback mappings,
+  unsafe obligations `UO-001…003` that become verification obligations rather than comments,
+  verification IR and obligation-derived tests, a **negative corpus** that tests the verifier
+  rather than the happy path, execution receipts, the evidence chain, `LAB001-GATE` returning
+  `PASS / FAIL / BLOCKED` and not a confidence percentage, the independent-verification
+  topology, deliberate protocol attacks, the migration certificate and its invariant, the
+  proof-carrying `MU-000001` manifest, two state machines that must not be merged, and the
+  thirteen questions the unit must answer mechanically — if any answer is *"the agent said so"*,
+  the vertical slice has failed. Same provenance convention as `VERIFICATION.md`.
+- **[KSIR-IMPL.md](KSIR-IMPL.md)** (§641–§659, source §§1–§18 plus the unnumbered
+  *implementation order* clause) — making KSIR **executable against a real C fixture** rather
+  than adding another abstraction layer. The frozen v0.1 domain table, in which *unsupported
+  analysis must serialize as an explicit limitation, not disappear*; `rfl-types` + `rfl-ksir`
+  with `SemanticFact<T>` and an `EpistemicStatus` that deliberately has **no `Verified`
+  variant**; `UnknownFact` carrying domain, reason and severity so `UNKNOWN` is actionable
+  rather than `null`; an observation layer that refuses to trust analyzer output; the uniform
+  `AnalysisBackend` contract that forbids silently selecting another kernel commit, `.config`,
+  compiler, header tree or architecture; `BuildManifest` as the root of semantic evidence —
+  `No BuildManifest ↓ No authoritative compiler observation ↓ No VERIFIED semantic claim`; the
+  compiler-native first backend; `CallTarget` as a **precision lattice, not a confidence
+  score**; context and effect reconstruction; ownership and lock reconstruction that must
+  surface `CONFLICT` or `UNPROTECTED` rather than repair source semantics by assumption;
+  reconciliation with **no agent voting, no majority rule, no confidence aggregation**; KSIR
+  synthesis; critical-unknown blocker extraction; the `lab001` corpus treated as a fixture
+  specification; acceptance gates `KSIR-001…020`; the end-to-end execution chain; and the fixed
+  M0 implementation order. Same provenance convention as `VERIFICATION.md`.
+- **[KSIR-SLICE.md](KSIR-SLICE.md)** (§660–§679, source §§1–§19 plus the unnumbered *immediate
+  next build target*) — turning that schema into a **minimal compilable implementation**. The
+  `rfl-types` / `rfl-ksir` / `rfl-analysis-types` / `rfl-analysis-compiler` split, which is what
+  stops the analyzer from becoming the semantic authority; `id_type!` so a typed `ObjectId` is
+  protocol identity rather than a descriptive string; a `Digest` that carries its algorithm;
+  snapshot identity where `source_tree_digest` is authoritative and `source_version` merely
+  descriptive; build variants as separate validity domains; mandatory provenance; a pointer
+  model in which `Ownership = RefCounted`, `Aliasing = MutableShared`, `Lifetime = Unknown` is
+  valid KSIR and must **not** be "helpfully" converted into `Arc<T>`; lifetime, concurrency,
+  context and effect models; an observation schema that says *this backend observed X* and never
+  *X is semantically verified*; a reconciler with **no weighted voting**; a compiler-backend
+  boundary that cannot write `state.migration = Verified`; the deliberately narrow `A001…A007`
+  first analyzer with explicit `SUPPORTED / PARTIALLY_SUPPORTED / OPAQUE / UNKNOWN` capability
+  status; the first **deliberate failure**, where the analyzer failing safely is the correct
+  result; deterministic KSIR digests; fail-closed snapshot invalidation; `KSIR-GATE-001`
+  returning `PASS / FAIL / BLOCKED` and not `87% semantic confidence`; and the
+  authority-separation table. Same provenance convention as `VERIFICATION.md`.
+- **[KSIR-ANALYZER.md](KSIR-ANALYZER.md)** (§680–§701, source §§1–§21 plus the unnumbered *next
+  implementation sequence*) — building the **first real analyzer** rather than another schema.
+  The frozen analyzer boundary in which the analyzer *never receives permission to mutate
+  canonical protocol state*; `AnalysisArtifact`, so the chain is
+  `KSIR fact ↓ Observation ↓ AnalysisArtifact ↓ ExecutionReceipt` rather than
+  `"compiler said so"`; a normalization layer keeping compiler-specific structures out of KSIR;
+  a reproducible `BackendIdentity` where `executable_digest` and `algorithm_revision` mean an
+  algorithm change invalidates derived facts even with the source tree unchanged; build
+  invocation driven by a real `BuildManifest` and recorded as the **actual command**; the
+  deliberately small `lab001` fixture with a shim so it stays independently buildable; the
+  expected structural graph; observed vs. derived vs. unknown facts that must never be
+  collapsed; direct-call effect propagation with `DerivedFact` pointing back to both
+  observations; versioned `RuleIdentity`; the callback, context, ownership and lifetime rules
+  that stop at `UNKNOWN` instead of guessing; a structural KSIR artifact in which `UNKNOWN` is
+  useful data; three negative tests (analyzer failure, conflicting observations, snapshot
+  substitution) establishing `execution failure ≠ semantic false ≠ verification failure`; the
+  first `KSIR-GATE-001` execution, where **BLOCKED is the correct result**; Contract IR with
+  `C005 = BLOCKED`; and the two properties that become executable tests. Same provenance
+  convention as `VERIFICATION.md`.
+- **[EXECUTABLE-KERNEL.md](EXECUTABLE-KERNEL.md)** (§702–§717, source *Current state* plus
+  §§1–§14 plus the unnumbered *Immediate implementation sequence*) — stopping the addition of
+  conceptual layers and making the invariants executable. A `Current state` table that still
+  records the protocol as **PROVISIONAL** and the transition engine, evidence ledger and gate
+  engine as **NOT IMPLEMENTED**; the governing principle that **RFL-AE must be able to reject an
+  invalid agent action without asking an LLM whether the action is valid**; a `DOMAIN-TYPES.md`
+  registry eliminating the `SnapshotId` / `KernelSnapshotId` ambiguity; the three-way gate
+  algebra where `Gate ≠ GateStatus ≠ GateResult`; a canonical `Epoch` answered with `REJECT`
+  rather than `WARNING`; `rfl-types` as a deliberately boring crate with **domain types and
+  invariants only**; `rfl-transition`, where agents **request** transitions and only the engine
+  produces authoritative state; a transition relation that is never `"probably okay"`,
+  `"LLM believes valid"` or `"majority of agents approved"`; a task state machine that makes
+  `FAILED → VERIFIED` and `EXECUTING → CERTIFIED` structurally impossible; seven adversarial
+  negative tests; an event ledger whose `previous_state + operation + resulting_state` makes
+  replay divergence detectable; evidence bound to objects rather than `"cargo test passed"`;
+  `TechnicalCertification` kept separate from `UpstreamAcceptanceState`; the Linux subsystem
+  manifest; the inverted agent hierarchy; a one-engine-first milestone with **0 autonomous
+  mutation agents**; eleven implementation phases; and a release gate without which RFL-AE v0.1
+  cannot be called complete. Same provenance convention as `VERIFICATION.md`.
+- **[PROTOCOL-V01.md](PROTOCOL-V01.md)** (§718–§744, source §§1–§27) — the **Protocol Kernel
+  Specification v0.1**, freezing the protocol so it is *closed under execution*: every object
+  referenced by a transition has a canonical type, every state change has a deterministic rule,
+  and every rejection is machine-identifiable. The canonical domain model in which `Task`,
+  `Contract`, `Capability` and `Authorization` are **not interchangeable**; opaque newtype IDs so
+  code cannot compare `String` with `ArtifactId`; `KernelSnapshotId` resolving the `SnapshotId`
+  ambiguity; an `Epoch` with an executable `same_epoch` rule rather than a textual convention;
+  structural `Scope` with `contains()` as protocol logic; the absolute **capability ≠
+  authorization** distinction; a closed `OperationKind` with no arbitrary shell execution; typed
+  `OperationRequest` instead of natural-language instructions; a transition relation with **no
+  third state**; a stable `RejectionReason` taxonomy; explicit transition legality where
+  `Created -> Certified` yields `InvalidTransition`; `Task` separated from `TaskAttempt` rather
+  than allowing state rewinds; an event ledger chained by `previous_event` and `event_digest`;
+  the replay invariant `replay(events) == authoritative_state`; evidence strictly downstream of
+  execution; `EvidenceOutcome::Passed` **not** implying `Artifact::Verified`; verification as a
+  multi-dimensional relation; nine contract classes; the gate non-equivalences; a certificate
+  that is `Derive(...)` and never *"Agent says CERTIFIED"*; an executable `RELEASE_ELIGIBLE`
+  predicate; a tiny agent API; the proposed repository reorganisation; an 18-row conformance
+  matrix where **the negative suite is as important as the positive suite**; the kernel
+  verification bridge, where RFL-AE knows *what* evidence means and Linux tools determine
+  *whether* the test passed; maintainer authority as a separate plane; and the C→Rust
+  reconstruction model, where **the reconstructed semantic contract — not the Rust code — is the
+  source of truth**. Same provenance convention as `VERIFICATION.md`.
+- **[SEMANTIC-LAYER.md](SEMANTIC-LAYER.md)** (§745–§774, source §§1–§29 plus the unnumbered
+  *RFL-AE maturity boundary*) — the layer at the heart of the Linux C→Rust problem, whose first
+  rule is **do not translate syntax first — reconstruct semantics first**. The `SemanticUnit`
+  whose `evidence` field makes every nontrivial assertion traceable; the
+  `OBSERVED ≠ DERIVED ≠ HYPOTHESIS ≠ VERIFIED` distinction enforced by the data model; a
+  provenance graph so the system can answer *"why does the system believe this contract
+  exists?"* rather than *"which agent said it?"*; thirty explicit semantic dimensions, where
+  absence is `NOT_OBSERVED` and never silently `false`; execution-context, lock, ownership,
+  lifetime, RCU, initialization and teardown models; independent ABI and
+  configuration/architecture scopes; specialised reconstruction agents that produce
+  **claims/proposals, not truth**; `SemanticConflict` as a first-class object with **no majority
+  voting**; `HeuristicScore` permitted as metadata but prohibited from becoming `Verified`; the
+  Rust Design IR whose `unsafe_obligations` must not disappear; unsafe as an obligation ledger;
+  the full compilation pipeline; the crucial invariant that certification requires **two
+  independent directions of evidence**; the `CERTIFIABLE(U)` predicate, whose
+  `complete_for_required_domains` is deliberate; subsystem migration profiles; the first
+  end-to-end vertical slice; and the maturity boundary where the **protocol kernel must be
+  deterministic** and the **reconstruction engine may use AI**. Same provenance convention as
+  `VERIFICATION.md`.
+- **[PROOF-CARRYING.md](PROOF-CARRYING.md)** (§775–§803, source §§1–§28 plus the unnumbered
+  *The next boundary*) — closes the loop between semantic reconstruction and actual C→Rust
+  migration with a **proof-carrying migration object**. The `MigrationUnit` as the fundamental
+  object moving through RFL-AE, whose boundary must be **semantic**, not merely syntactic;
+  dependency closure and explicit `DependencyState`s, so an unexamined dependency becomes
+  `UNKNOWN` rather than implicitly correct; a contract graph with content-derived `ContractId`s,
+  because semantics are **never identified by prose**; explicit `ContractMapping`s and justified
+  `DesignDecision`s; unsafe design decisions whose obligations cannot disappear because the code
+  compiles; a narrow `RustGenerator` whose authority ends at artifact generation;
+  `GenerationRecord` provenance and `ArtifactLineage` for human modification; differential
+  verification with explicit `EquivalenceKind`s — evidence, not universal proof; a
+  verification-method taxonomy; the coverage matrix and **semantic coverage ≠ code coverage**;
+  `MIGRATION_READY(U)`; separate design/implementation/execution/release authorization and the
+  capability lattice; the `ALLOW(op)` security equation; the trust boundary between
+  probabilistic agents and the deterministic protocol; a disagreement protocol with no voting; a
+  benchmark that optimises for `FALSE_CERTIFICATION_RATE`; the content-addressed certificate
+  chain; the final architecture with its strictly one-way authority direction; and the
+  protocol-kernel reference implementation as the next boundary. Same provenance convention as
+  `VERIFICATION.md`.
+- **[RFL-TYPES.md](RFL-TYPES.md)** (§804–§822, source §§1–§18 plus the unnumbered *The next
+  concrete layer*; untitled in the source) — makes the protocol kernel concrete, starting with
+  **`rfl-types`**, whose one job is to define the canonical data model and invariants shared by
+  every RFL-AE component. Newtype identifiers so the compiler becomes part of the protocol
+  boundary; an algorithm-bearing `Digest`; `Epoch` as a first-class object that state, evidence
+  and authorization cannot silently cross; a status algebra keeping `GateStatus`,
+  `VerificationStatus` and `EvidenceStatus` apart, with **`FAIL ≠ BLOCKED`**; a closed
+  `OperationKind`; `Capability` distinct from `Authorization`; `OperationRequest` instead of
+  `execute(command: String)`; `MigrationUnit` with source identity; a deterministic transition
+  engine with no third result; retries as new `TaskAttempt`s, not state rewinds; a hash-chained
+  ledger where **replay is a theorem of the implementation**; the evidence boundary; the
+  self-verification attack as a transition invariant; the **18 adversarial conformance tests**,
+  the last of which must accept; and `rfl-transition` as the next concrete layer. Same
+  provenance convention as `VERIFICATION.md`.
+- **[RFL-TRANSITION.md](RFL-TRANSITION.md)** (§823–§842, source §§19–§38 — the author continued
+  `RFL-TYPES.md`'s numbering, so the offset is +804; untitled in the source) — formalizes
+  **`rfl-transition`**, where the architecture starts defining an executable protocol law. The
+  transition relation δ with **no mutation before all preconditions pass**; `TaskStatus`
+  separated from `AttemptStatus`; a normative transition matrix where everything not specified
+  is `Rejected(InvalidTransition)`; compositional precondition checks; a machine-readable
+  `RejectionReason` taxonomy; authorization checked against every dimension; structured `Scope`
+  and typed `Target`s, because protocol semantics must not be encoded as shell syntax; the
+  execution-adapter boundary; idempotency through `RequestId` plus `RequestDigest`; epoch
+  invalidation at the transition boundary; evidence that cannot authorize itself; certification
+  as a **derived protocol fact**; the first complete state machine; `Certified` not implying
+  upstream acceptance; conformance properties P1–P8; and the **small trusted computing base**
+  that nothing else gets to redefine. Same provenance convention as `VERIFICATION.md`.
+- **[RFL-LEDGER.md](RFL-LEDGER.md)** (§843–§865, source §§39–§61 — continuing the author's
+  numbering, so the offset stays +804; untitled in the source) — specifies **`rfl-ledger`**, where
+  transition decisions become an authoritative, tamper-evident history: *the ledger is not a log
+  of what agents claim happened; it is the serialized history of protocol transitions*.
+  `EventId` versus `EventDigest`; a canonical `EventCore` that excludes its own digest; history
+  linkage plus state linkage as independent integrity checks; a small `Ledger` API over
+  interchangeable backends, because **persistence is not authority**; replay that re-runs
+  transition semantics instead of trusting stored state; the determinism requirement; protocol
+  time versus historical time; fork detection and explicit branches with no majority voting; no
+  silent history rewriting, and **correction ≠ erasure**; immutable events and an explicit
+  genesis; structural, semantic and replay validation levels; the ledger attacks L1–L9; and
+  `rfl-evidence` as the next boundary. Same provenance convention as `VERIFICATION.md`.
+- **[RFL-EVIDENCE.md](RFL-EVIDENCE.md)** (§866–§893, source §§62–§89 — continuing the author's
+  numbering, so the offset stays +804; untitled in the source) — specifies **`rfl-evidence`**, the
+  most important external trust boundary: the ledger records what RFL-AE authorized, evidence
+  establishes what an external execution system actually observed. Immutable artifact identity
+  and provenance; typed execution requests; observations that report but never certify; evidence
+  records bound to epoch, task, artifact, execution, command, inputs, outputs, environment and
+  toolchain; **Failed ≠ Blocked**; the forged-artifact, stale-evidence and self-generated-evidence
+  attacks; configuration scope; evidence completeness (missing evidence means `BLOCKED`, not
+  `FAILED`); invalidation without rewriting history; *execution success does not imply
+  certification*; and `rfl-gates` as the next step. Same provenance convention as
+  `VERIFICATION.md`.
+- **[RFL-GATES.md](RFL-GATES.md)** (§894–§925, source §§90–§120 plus an unnumbered closing section
+  recorded as §121, so the offset stays +804; untitled in the source) — specifies **`rfl-gates`**,
+  where independently established facts become a controlled release decision without collapsing
+  uncertainty into a boolean. A gate is not a test; PASS / FAIL / BLOCKED / NOT_APPLICABLE /
+  INVALIDATED; a closed requirement algebra in which `Any` never turns missing evidence into
+  success; a deterministic evaluator with no LLM judgment; the `RELEASE_ELIGIBLE` predicate as a
+  conjunction of necessary conditions; dependency invalidation over a cycle-free gate graph;
+  structured explanations instead of a `ready` boolean; technical certification independent of
+  upstream acceptance; certificates as derived views; the first vertical slice; and the verdict
+  that the architecture has reached the **implementation boundary**. Same provenance convention
+  as `VERIFICATION.md`.
+- **[RFL-TYPES-V01.md](RFL-TYPES-V01.md)** (§926–§946, source §§1–§20 plus an unnumbered closing
+  section recorded as §21 — the author restarted at §1, so the offset is +925; untitled in the
+  source) — freezes the **first executable API contract**, beginning with `rfl-types v0.1`: one
+  newtype per protocol identity; a canonical `sha256:` digest; a four-part epoch with
+  all-or-nothing equality; `KernelSnapshotId`; a closed operation algebra and structured scope;
+  revocable authorization without a `valid` flag; closed request targets; retries as attempts;
+  separate status axes; a stable rejection taxonomy; canonical serialization kept apart from
+  semantics; the invariant tests; property P1 (no stale request is accepted); the
+  `rfl-transition v0.1` engine, precondition order and transition table; attacks A01–A18; a
+  synthetic conformance scenario; and the **implementation freeze point**. Same provenance
+  convention as `VERIFICATION.md`.
+- **[RFL-TRANSITION-V01.md](RFL-TRANSITION-V01.md)** (§947–§969, source §§1–§23 — the author
+  restarted at §1, so the offset is +946) — *`rfl-transition v0.1` — executable state-machine
+  specification*: the transition layer decides admissibility and never executes; explicit `State`
+  and `TransitionContext` with no hidden inputs; a deterministic δ returning an `EventProposal`,
+  not committed history; **Accepted ≠ Executed ≠ Succeeded ≠ Verified ≠ Certified**; pure
+  preconditions in a frozen P01–P19 order; the full authorization relation; scope containment; the
+  state-transition matrix; attempts instead of backward moves; `(RequestId, RequestDigest)`
+  idempotency; operation policies; replay and the historical-time rule; invariants T1–T10;
+  property-based tests; and `rfl-ledger` as the next hard point. Same provenance convention as
+  `VERIFICATION.md`.
+- **[RFL-LEDGER-V01.md](RFL-LEDGER-V01.md)** (§970–§998, source §§1–§28 plus the unnumbered
+  closing section as §29 — the author restarted at §1, so the offset is +969) — *`rfl-ledger v0.1`
+  — historical authority and replay*: the ledger stores history, replay derives authoritative state,
+  and stored state is only a cache; `Event` versus the hashed `EventCore`; event identity versus
+  digest; explicit genesis; the chain invariant; structural, semantic and replay validation; the
+  `Ledger` API and atomic append; replay that never trusts `resulting_state`; historical context
+  and replay purity; forks versus corruption; duplicates versus request replay; the tamper matrix;
+  the `LedgerError` taxonomy; immutable history and invalidation; state projection; the adversarial
+  suite L01–L18; the `history → state` trust chain; and `rfl-evidence v0.1` as the next layer.
+  Same provenance convention as `VERIFICATION.md`.
+
+## Tooling
+
+[`skills/`](skills/README.md) contains the reusable toolchain this corpus was
+produced with, packaged as skills. Six of them: `ascii-diagram-forge` (diagrams
+generated from column arithmetic, never hand-typed), `corpus-provenance-numbering`
+(contiguous corpus numbering with lossless source provenance),
+`placeholder-splice` (substitute generated diagrams and prove each landed inside
+a fence), `markdown-corpus-audit` (per-file and whole-corpus checks for the
+defects that render silently), `spec-turn-closeout` (the end-of-document ritual),
+and `skill-creator` (the meta-skill used to author the others).
+
+Run everything:
+
+```bash
+./skills/run_all.sh                    # or: ./skills/run_all.sh .venv/bin/python
+```
+
+It runs the geometry self-test, validates every skill, audits the corpus and the
+newest document, verifies the last close-out, and then runs three negative tests
+that must each fail. It exits non-zero if any stage fails, and it refuses to
+report a skipped check as a pass.
+
+## Audit
+
+[`audit/`](audit/README.md) contains an external deep audit of this branch at
+`952e300`, split into eight themed documents. It is a review of the corpus, not
+a specification, so it sits outside the §1–§998 numbering. Every checkable
+claim in it was re-verified before being saved; the results, including one
+correction to the report, are recorded in
+[audit/README.md](audit/README.md#verification-of-this-audits-factual-claims).
+
+Its conclusion is accepted: this is a **specification-level system**, which is
+what the status line below already says.
+
+## Status
+
+`v0.0` — documentation only. Thirty-three specification documents covering §1–§998 (§108 does not
+exist in the source; the gap is preserved); no Rust crates, JSON schemas, or executable
+benchmarks have been written yet.
