@@ -86,6 +86,8 @@ Every finding classified `PROVED` names the code path or command that establishe
 
 Part XV §2 records the one defect that stops work rather than permitting bad work: §86 defines the digest over `CanonicalCompiledPack` while §88 places `compiled_digest` inside that artifact. v0.7 §239 and v0.8 §302 each state the correct construction for *other* objects, leaving the pack instance untouched across three documents written to enable implementation.
 
+**Recording convention (declared).** All eight verbatim documents in `audit/` carry a horizontal rule `---` before each section heading, and use fenced code blocks with language tags in place of the source's inline single-backtick wrapping. **Neither is part of the supplied sources** — they are presentation additions, one separator per section. No wording, number, identifier, or ordering is altered. See [Part XIX](audit/rfl-ae-prompt-packs-part19.md) §11.3 for how this was found and why it is declared rather than removed.
+
 Parts IX–XII carry a header noting their category, because a proposal, a specification, or an analysis must not inherit the audit's authority. Part XI's §170.1 records the one thing in it that *is* verifiable: six of its fifteen release-gate conditions are evaluable against the existing toolchain, and it fails all six.
 
 **Part XII's principal result:** the operating contract and the current toolchain are **mutually inconsistent.** Ten sections of the contract have direct, executed violations in `vendor/rfl-ae/`. An agent obeying §9 and §27 must downgrade `run_all.sh`'s clean exit-0 to `PARTIAL`, because §8's scope relation cannot be established anywhere in the toolchain. Reconciling this is what `PHASE 0` exists for.

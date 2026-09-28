@@ -426,3 +426,73 @@ This is the same `without_self` construction Part XV §2.3 proposed as Option A,
 **And the substrate is still absent.** Nine documents now specify `evidence.schema.json` and none exists. v0.4 §86 has survived three documents written to enable implementation, while §302 demonstrates that the lineage states the remedy correctly every time it introduces a digest over a self-referential object.
 
 The lineage has reached the boundary it declared. §361 says so; Parts XV through XIX say so; and the evidence — 361 sections, 14 schemas, 13 identifier types, eight crates, seven gate enumerations, zero files — says so most clearly.
+
+---
+
+## 11. Appendix — Provenance re-verification of v0.8
+
+**Added after Part XIX was first published.** v0.8 was supplied a second time. This appendix records what the comparison found, and one defect it exposed in this audit's own recording practice.
+
+### 11.1 Method
+
+Both supplies were reduced to the section range §272–§361, then normalized by removing all whitespace, all backticks, and all code-fence language markers. In the recorded file, the `---` separators described in §11.3 were also removed. The two normalized character streams were compared with a sequence matcher.
+
+### 11.2 Result
+
+| Measure | Value |
+|---|---|
+| Recorded (normalized) | 23,490 characters |
+| Re-send (normalized) | 23,495 characters |
+| **Similarity** | **0.99985102** |
+| Differing blocks | **7** — one em-dash, six slashes |
+| Semantic differences | **0** |
+
+The seven deltas:
+
+| # | Delta | Disposition |
+|---|---|---|
+| 1 | §272 heading: recorded has `—`, re-send has two spaces | **Cosmetic.** Heading punctuation; no content change |
+| 2–7 | §273 `tools/` subtree: re-send has trailing slashes (`schema-check/` … `conformance/`), recorded did not | **Corrected** — every other directory in the same tree carries a trailing slash, so the re-send is the faithful form |
+
+**And the checks that matter for Part XIX's findings, run against the re-send:**
+
+| Check | Re-send | Recorded |
+|---|---|---|
+| §305 contains `PARTIAL or UNKNOWN` | **yes** | yes |
+| §308 contains *"Equivalent inputs SHALL produce equivalent results"* | **yes** | yes |
+| Section range | §272–§361, 90 sections, contiguous | same |
+
+**So the headline finding of §3 above survives re-verification: both supplies specify a coverage algorithm with two legal outputs and a gate contract that forbids exactly that.**
+
+### 11.3 A defect in this audit's own recording practice — declared
+
+The comparison exposed an undeclared addition of mine.
+
+**The recorded documents contain a horizontal rule `---` before each section heading.** Measured across the corpus:
+
+| Document | Sections | `---` lines | Match |
+|---|---|---|---|
+| v0.1 | 28 | 29 | no (+1) |
+| v0.2 | 41 | 41 | yes |
+| v0.3 | 30 | 30 | yes |
+| v0.4 | 35 | 35 | yes |
+| v0.5 | 44 | 44 | yes |
+| v0.6 | 50 | 50 | yes |
+| v0.7 | 71 | 71 | yes |
+| v0.8 | 90 | 90 | yes |
+
+One separator per section, consistently, across all eight recorded documents — and **the source supplies contain none.** My provenance headers declared the restoration of *"line breaks, indentation, and fenced structure"*, which does not cover inserted separators. The claim *"no wording was added"* was true of wording and false of markup.
+
+This is worth recording as more than a housekeeping note, because it is **this audit's own instance of the failure the audit exists to find**:
+
+- The lineage's rule is `representation ≠ semantics`, and §283 requires canonicalization to be explicit about representation.
+- A recording that adds structure while declaring only a narrower set of transformations is exactly the class of undeclared transformation the lineage forbids.
+- The addition was harmless — but it was **undetectable from the artifact itself**, which is the property that makes undeclared representation changes dangerous: a later reader comparing the recording to the source would find differences they could not attribute.
+
+**Corrected by declaration, not by removal.** The separators are retained for navigability; they are now declared in v0.8's provenance header as a corpus-wide convention. Declaring is preferred to removing because removal would make the eight recorded documents mutually inconsistent in structure, and because the honest fix for an undeclared transformation is to declare it.
+
+**Limitation, stated plainly:** only v0.8 was supplied twice, so only v0.8 could be re-verified against a source. The other seven documents' derivations **cannot** be checked from what is on disk, and this appendix makes no claim about them beyond the separator count.
+
+### 11.4 What this does not change
+
+Nothing in §1–§10. The re-send is the same document: same 90 sections, same §305 defect, same §308 rule, same inventories. **No Part XX analysis is warranted, and none was written** — the correct response to a duplicate supply is to verify it is a duplicate and say so, not to manufacture a new pass.

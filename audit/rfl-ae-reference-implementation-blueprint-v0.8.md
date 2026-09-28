@@ -2,6 +2,10 @@
 
 > **Provenance of this file.** Supplied by the repository owner; recorded verbatim. Source text arrived with list-structured, Rust, YAML, tree, and graph passages collapsed; line breaks, indentation, and fenced structure restored, with the repository tree (§273), the workspace graph (§274), the implementation dependency graph (§353), the transition table (§287), and all Rust/YAML/JSON blocks reconstructed from their inline form. Declared as a transformation per the lineage's own rule: **no wording was added, removed, or reordered.**
 >
+> **Recording conventions, declared.** Two presentation additions are present and are **not** part of the source: (1) a horizontal rule `---` before each section heading, one per section — this convention applies to **all eight recorded documents** in this corpus, not only this one; (2) Markdown code fences with language tags in place of the source's inline single-backtick wrapping. Neither alters any word, number, identifier, or ordering.
+>
+> **Re-verification against a second supply (2026-09-28).** This document was supplied twice. Comparing the two, after normalizing whitespace, backticks, and the `---` separators above: **similarity 0.99985 with zero semantic difference** across all 90 sections. The only deltas were the §272 heading's em-dash and six trailing slashes in §273's `tools/` subtree — the latter corrected here, since every other directory in that tree carries a trailing slash. §305's `PARTIAL or UNKNOWN`, §308's determinism rule, and all counted enumerations are identical in both supplies. See [Part XIX](rfl-ae-prompt-packs-part19.md) §11.
+>
 > **Standing.** Begins at **§272**, continuing [`v0.7`](rfl-ae-executable-protocol-types-v0.7.md) (§201–§271). The effective specification is now **§0–§361 across seven documents**.
 >
 > **Status:** NORMATIVE IMPLEMENTATION BLUEPRINT
@@ -77,12 +81,12 @@ rfl-ae/
 │   └── injection/
 │
 ├── tools/
-│   ├── schema-check
-│   ├── canonicalize
-│   ├── digest
-│   ├── validate
-│   ├── replay
-│   └── conformance
+│   ├── schema-check/
+│   ├── canonicalize/
+│   ├── digest/
+│   ├── validate/
+│   ├── replay/
+│   └── conformance/
 │
 └── tests/
     ├── unit/
