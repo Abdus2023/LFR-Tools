@@ -25,6 +25,7 @@ LFR-Tools/
     ├── rfl-ae-skills-review-part8.md          Part VIII (§97–§112)
     ├── rfl-ae-prompt-instruction-packs.md     Part IX  (design proposal)
     ├── rfl-ae-prompt-packs-part10.md          Part X   (design proposal)
+    ├── rfl-ae-prompt-packs-part11.md          Part XI  (normative spec, gate unmet)
     └── rfl-ae-runall-receipt.log              stage-by-stage execution receipt
 ```
 
@@ -47,8 +48,9 @@ Every finding classified `PROVED` names the code path or command that establishe
 | Parts I–VIII | **Audit** | Executed against the snapshot; classifications are empirical |
 | Consolidated | **Audit** | De-duplicated from Parts I–VIII |
 | Parts IX–X | **Design proposal** | No empirical claims; every section is `PROPOSED`, not `PROVED` |
+| Part XI | **Normative specification** | Binding requirements, **not yet implemented**; its §170 release gate is unmet |
 
-Parts IX–X carry a header noting this distinction, because a design proposal must not inherit the audit's authority.
+Parts IX–XI carry a header noting this distinction, because a proposal or a specification must not inherit the audit's authority. Part XI's §170.1 records the one thing in it that *is* verifiable: six of its fifteen release-gate conditions are evaluable against the existing toolchain, and it fails all six.
 
 ## The four critical findings
 
