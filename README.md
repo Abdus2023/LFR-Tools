@@ -48,6 +48,8 @@ LFR-Tools/
     ├── rfl-ae-prompt-packs-part21.md          Part XXI (v1.0, two carried items move)
     ├── rfl-ae-fixture-corpus-conformance-manifest-v1.1.md  §556–§655, fixture corpus
     ├── rfl-ae-prompt-packs-part22.md          Part XXII (v1.1, coverage derived)
+    ├── rfl-ae-evidence-execution-record-v1.2.md  §656–§800, evidence + execution records
+    ├── rfl-ae-prompt-packs-part23.md          Part XXIII (v1.2, scope relation inverted)
     └── rfl-ae-runall-receipt.log              stage-by-stage execution receipt
 ```
 
@@ -55,7 +57,7 @@ LFR-Tools/
 
 **[`audit/rfl-ae-skills-audit-consolidated.md`](audit/rfl-ae-skills-audit-consolidated.md)** — the reference document. Findings are organised by component and severity rather than discovery order; the per-pass files are the chronological record it de-duplicates.
 
-**57 findings: 7 critical, 12 high, 29 medium, 10 positive.**
+**57 findings: 7 critical, 12 high, 29 medium, 10 positive.** That count is current **through Part XX**; Parts XXI–XXIII and the v1.1/v1.2 documents are not yet folded into the consolidated file, which is the one stale artifact in `audit/`. For those ranges the per-pass files are authoritative.
 
 ## Method
 
@@ -93,14 +95,18 @@ Every finding classified `PROVED` names the code path or command that establishe
 | Part XXI | **Analysis** | v1.0; two long-carried items move |
 | Fixture Corpus & Conformance Manifest v1.1 | **Normative** | §556–§655; manifest, corpus, comparison |
 | Part XXII | **Analysis** | v1.1; coverage derived by example, one class dropped |
+| Evidence & Execution Record v1.2 | **Normative** | §656–§800; identity, status lattice, trust, evidence closure |
+| Part XXIII | **Analysis** | v1.2; §749's scope relation inverted, `Covered` undefined |
 
-**The specification lineage (§0–§655)** spans **eleven** supplied documents, ten of which form a single numbered progression (v0.2 §0–§40 → v1.1 §556–§655, one gap at §200). Analysed in Parts XII–XXII.
+**The specification lineage (§0–§800)** spans **twelve** supplied documents, eleven of which form a single numbered progression (v0.2 §0–§40 → v1.2 §656–§800, one gap at §200). Analysed in Parts XII–XXIII.
 
-> **Citation rule — §1–§28 is occupied twice.** [`v0.1`](audit/rfl-ae-master-agent-instructions-v0.1.md) is §1–§28 and [`v0.2`](audit/rfl-ae-master-prompt-instructions-v0.2.md) is §0–§40. They share **28 section numbers and zero identical headings** (v0.1 §4 = *AUTHORITY*; v0.2 §2 = *AUTHORITY*). **Any citation from §1 to §28 MUST name its document.** §29–§555 is unambiguous. See [Part XXI](audit/rfl-ae-prompt-packs-part21.md) §7.
+> **Citation rule — §1–§28 is occupied twice.** [`v0.1`](audit/rfl-ae-master-agent-instructions-v0.1.md) is §1–§28 and [`v0.2`](audit/rfl-ae-master-prompt-instructions-v0.2.md) is §0–§40. They share **28 section numbers and zero identical headings** (v0.1 §4 = *AUTHORITY*; v0.2 §2 = *AUTHORITY*). **Any citation from §1 to §28 MUST name its document.** §29–§800 is unambiguous. See [Part XXI](audit/rfl-ae-prompt-packs-part21.md) §7.
 
 Part XV §2 recorded the defect that stopped work rather than permitting bad work: v0.4 §86 defines the digest over `CanonicalCompiledPack` while §88 places `compiled_digest` inside that artifact. **v1.0 §541 partially closes it** — evidence binds both pack digests, placing the digest's binding locus outside the artifact it identifies. No exclusion rule was stated, so the remedy is positional rather than semantic. See [Part XXI](audit/rfl-ae-prompt-packs-part21.md) §4.
 
-**Recording convention (declared).** All eleven verbatim documents in `audit/` carry a horizontal rule `---` before each section heading, and use fenced code blocks with language tags in place of the source's inline single-backtick wrapping. **Neither is part of the supplied sources** — they are presentation additions, one separator per section. No wording, number, identifier, or ordering is altered. See [Part XIX](audit/rfl-ae-prompt-packs-part19.md) §11.3 for how this was found and why it is declared rather than removed.
+**Recording convention (declared).** All twelve verbatim documents in `audit/` carry a horizontal rule `---` before each section heading, and use fenced code blocks with language tags in place of the source's inline single-backtick wrapping. **Neither is part of the supplied sources** — they are presentation additions, one separator per section. No wording, number, identifier, or ordering is altered. See [Part XIX](audit/rfl-ae-prompt-packs-part19.md) §11.3 for how this was found and why it is declared rather than removed.
+
+**Header counts are positional, and this is declared here so it is not read as an undercount.** Each recorded document's provenance header states the size of the lineage **at the moment that document was recorded** — so v0.8's header says *eight*, v0.9's *nine*, v1.0's *ten*, v1.1's *eleven*, v1.2's *twelve*. Those are historical statements, not claims about the corpus today; this README is the only file that states the **current** size (§0–§800 across twelve documents). The same applies to the phrase *"all N recorded documents"* in each header. Earlier versions of this corpus carried a genuine undercount — the headers said seven/eight/nine while the lineage was already eight/nine/ten — and that defect is closed by this convention, not by repeatedly re-writing twelve headers.
 
 Parts IX–XII carry a header noting their category, because a proposal, a specification, or an analysis must not inherit the audit's authority. Part XI's §170.1 records the one thing in it that *is* verifiable: six of its fifteen release-gate conditions are evaluable against the existing toolchain, and it fails all six.
 
@@ -127,6 +133,9 @@ P0 — correctness defects
   4. remove has_prov; require provenance per document class (C-3)
   5. negative-test fixtures use mktemp -d                 (must precede 3)
   6. run_all.sh uses $PY consistently
+  7. check_fences becomes a fence parser, not a parity   (new: high)
+     test — it reports balanced on an unclosed fence and
+     unbalanced on a valid quoted fence
 ```
 
 Items 1 and 2 are hours of work; each defect is live. Item 5 must precede item 3 or the test becomes nondeterministic.
