@@ -38,6 +38,8 @@ LFR-Tools/
     ├── rfl-ae-prompt-packs-part16.md          Part XVI (v0.5, closures + matrix)
     ├── rfl-ae-protocol-schemas-v0.6.md        §150–§199, typed object schemas
     ├── rfl-ae-prompt-packs-part17.md          Part XVII (v0.6, closures + regression)
+    ├── rfl-ae-executable-protocol-types-v0.7.md   §201–§271, executable types
+    ├── rfl-ae-prompt-packs-part18.md          Part XVIII (v0.7, closures + dropped closure)
     └── rfl-ae-runall-receipt.log              stage-by-stage execution receipt
 ```
 
@@ -73,8 +75,10 @@ Every finding classified `PROVED` names the code path or command that establishe
 | Part XVI | **Analysis** | v0.5; two findings closed, §145 matrix measured |
 | Protocol Schemas v0.6 | **Normative** | §150–§199; sixteen typed object schemas |
 | Part XVII | **Analysis** | v0.6; three closures, one regression |
+| Executable Protocol Types v0.7 | **Normative** | §201–§271; JSON/Rust/TypeScript types |
+| Part XVIII | **Analysis** | v0.7; four closures, one dropped closure |
 
-**The specification lineage (§0–§199)** spans five documents and is analysed in Parts XII–XVII. Part XV §2 records the one defect that stops work rather than permitting bad work: §86 defines the digest over `CanonicalCompiledPack` while §88 places `compiled_digest` inside that artifact. Part XVI §8 and Part XVII §5 show v0.5's and v0.6's own gates are downstream of it too — it now spans three documents.
+**The specification lineage (§0–§271)** spans six documents and is analysed in Parts XII–XVIII. Part XV §2 records the one defect that stops work rather than permitting bad work: §86 defines the digest over `CanonicalCompiledPack` while §88 places `compiled_digest` inside that artifact. v0.7 §239 supplies the exact fix for this class — but scopes it to evidence, leaving the pack instance untouched.
 
 Parts IX–XII carry a header noting their category, because a proposal, a specification, or an analysis must not inherit the audit's authority. Part XI's §170.1 records the one thing in it that *is* verifiable: six of its fifteen release-gate conditions are evaluable against the existing toolchain, and it fails all six.
 
