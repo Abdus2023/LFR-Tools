@@ -40,6 +40,8 @@ LFR-Tools/
     ├── rfl-ae-prompt-packs-part17.md          Part XVII (v0.6, closures + regression)
     ├── rfl-ae-executable-protocol-types-v0.7.md   §201–§271, executable types
     ├── rfl-ae-prompt-packs-part18.md          Part XVIII (v0.7, closures + dropped closure)
+    ├── rfl-ae-reference-implementation-blueprint-v0.8.md  §272–§361, kernel blueprint
+    ├── rfl-ae-prompt-packs-part19.md          Part XIX (v0.8, closures + contradiction)
     └── rfl-ae-runall-receipt.log              stage-by-stage execution receipt
 ```
 
@@ -77,8 +79,12 @@ Every finding classified `PROVED` names the code path or command that establishe
 | Part XVII | **Analysis** | v0.6; three closures, one regression |
 | Executable Protocol Types v0.7 | **Normative** | §201–§271; JSON/Rust/TypeScript types |
 | Part XVIII | **Analysis** | v0.7; four closures, one dropped closure |
+| Reference Implementation Blueprint v0.8 | **Normative** | §272–§361; kernel, engines, conformance |
+| Part XIX | **Analysis** | v0.8; strongest closure set, one contradiction |
 
-**The specification lineage (§0–§271)** spans six documents and is analysed in Parts XII–XVIII. Part XV §2 records the one defect that stops work rather than permitting bad work: §86 defines the digest over `CanonicalCompiledPack` while §88 places `compiled_digest` inside that artifact. v0.7 §239 supplies the exact fix for this class — but scopes it to evidence, leaving the pack instance untouched.
+**The specification lineage (§0–§361)** spans seven documents and is analysed in Parts XII–XIX. §361 itself concludes that *"the next stage is no longer primarily a prompt specification"* — which matches what Parts XV–XIX found independently.
+
+Part XV §2 records the one defect that stops work rather than permitting bad work: §86 defines the digest over `CanonicalCompiledPack` while §88 places `compiled_digest` inside that artifact. v0.7 §239 and v0.8 §302 each state the correct construction for *other* objects, leaving the pack instance untouched across three documents written to enable implementation.
 
 Parts IX–XII carry a header noting their category, because a proposal, a specification, or an analysis must not inherit the audit's authority. Part XI's §170.1 records the one thing in it that *is* verifiable: six of its fifteen release-gate conditions are evaluable against the existing toolchain, and it fails all six.
 
