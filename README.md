@@ -32,6 +32,8 @@ LFR-Tools/
     ├── rfl-ae-prompt-packs-part13.md          Part XIII (v0.1 → v0.2 diff)
     ├── rfl-ae-operational-agent-protocol-v0.3.md  §41–§70, extends v0.2
     ├── rfl-ae-prompt-packs-part14.md          Part XIV (v0.3 analysis)
+    ├── rfl-ae-prompt-pack-specification-v0.4.md   §71–§105, implementable
+    ├── rfl-ae-prompt-packs-part15.md          Part XV (v0.4, blocking analysis)
     └── rfl-ae-runall-receipt.log              stage-by-stage execution receipt
 ```
 
@@ -61,6 +63,10 @@ Every finding classified `PROVED` names the code path or command that establishe
 | Part XIII | **Analysis** | v0.1 → v0.2 diff; finding disposition |
 | Operational Agent Protocol v0.3 | **Normative** | §41–§70; **extends** v0.2, not self-contained |
 | Part XIV | **Analysis** | v0.3 analysis; additive-revision findings |
+| Prompt Pack Specification v0.4 | **Normative** | §71–§105; executable-pack schemas |
+| Part XV | **Analysis** | v0.4; one **blocking** defect + gate reconciliation |
+
+**The specification lineage (§0–§105)** spans three documents and is analysed in Parts XII–XV. Part XV's §2 records the one defect that stops work rather than permitting bad work: §86 defines the digest over `CanonicalCompiledPack` while §88 places `compiled_digest` inside that artifact. Three of v0.4's fifteen release gates cannot be executed until it is resolved.
 
 Parts IX–XII carry a header noting their category, because a proposal, a specification, or an analysis must not inherit the audit's authority. Part XI's §170.1 records the one thing in it that *is* verifiable: six of its fifteen release-gate conditions are evaluable against the existing toolchain, and it fails all six.
 
