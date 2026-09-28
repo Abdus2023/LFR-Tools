@@ -30,6 +30,8 @@ LFR-Tools/
     ├── rfl-ae-prompt-packs-part12.md          Part XII (analysis of the above)
     ├── rfl-ae-master-prompt-instructions-v0.2.md  the 40-section revision
     ├── rfl-ae-prompt-packs-part13.md          Part XIII (v0.1 → v0.2 diff)
+    ├── rfl-ae-operational-agent-protocol-v0.3.md  §41–§70, extends v0.2
+    ├── rfl-ae-prompt-packs-part14.md          Part XIV (v0.3 analysis)
     └── rfl-ae-runall-receipt.log              stage-by-stage execution receipt
 ```
 
@@ -57,6 +59,8 @@ Every finding classified `PROVED` names the code path or command that establishe
 | Part XII | **Analysis** | Receipt mapping + self-consistency of the above |
 | Master Prompt Instructions v0.2 | **Normative** | 40-section revision; supersedes v0.1 |
 | Part XIII | **Analysis** | v0.1 → v0.2 diff; finding disposition |
+| Operational Agent Protocol v0.3 | **Normative** | §41–§70; **extends** v0.2, not self-contained |
+| Part XIV | **Analysis** | v0.3 analysis; additive-revision findings |
 
 Parts IX–XII carry a header noting their category, because a proposal, a specification, or an analysis must not inherit the audit's authority. Part XI's §170.1 records the one thing in it that *is* verifiable: six of its fifteen release-gate conditions are evaluable against the existing toolchain, and it fails all six.
 
